@@ -1,0 +1,41 @@
+{
+  "name": "sunne-test",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Henrique Artur <contato@henriqueartur.com>",
+  "main": "index.js",
+  "engines": {
+    "node": "^20.0.0",
+    "pnpm": "^9.12.2",
+    "yarn": "please-use-pnpm",
+    "npm": "please-use-pnpm",
+    "deno": "please-use-pnpm",
+    "bun": "please-use-pnpm"
+  },
+  "packageManager": "pnpm@9.12.2",
+  "workspaces": [
+    "projects/back",
+    "projects/front"
+  ],
+  "scripts": {
+    "build": "pnpm run build:front",
+    "build:front": "pnpm run --filter=@sunne-test/front build",
+    "db:start": "docker compose up -d",
+    "dev": "pnpm run db:start & concurrently -n \"front,back\" --kill-others-on-fail \"pnpm run dev:front\" \"pnpm run dev:back\"",
+    "dev:back": "pnpm run --filter=@sunne-test/back dev:back",
+    "dev:front": "pnpm run --filter=@sunne-test/front dev:front",
+    "lint": "pnpm biome check --fix --unsafe --diagnostic-level=error ./projects/**",
+    "lint:ci": "pnpm biome ci --diagnostic-level=error",
+    "prepare": "husky",
+    "prepare:front:jr": "./scripts/prepare-readme.sh FRONT_END \"FULL_PL.md node_modules .git\"",
+    "prepare:full:pl": "./scripts/prepare-readme.sh FULL_PL \"FRONT_JR.md node_modules .git\"",
+    "test": "pnpm run --filter=@sunne-test/back test"
+  },
+  "devDependencies": {
+    "biome": "^0.3.3",
+    "husky": "^9.1.6"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
