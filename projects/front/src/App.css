@@ -5,17 +5,82 @@
   text-align: center;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./assets/bg.png'); /* Substitua pelo caminho da sua imagem */
+  background-size: cover; /* Faz com que a imagem cubra toda a área */
+  background-position: 30 px center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Impede que a imagem seja repetida */
+}
+
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+  position: absolute;
+  width: 186px;
+  height: 49.7px;
+  top: 80.04px;
+  left: 233px;
+  gap: 0px;
+  opacity: 0px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+.card {
+  width: Fixed (395px)px;
+  height: Hug (397px)px;
+  top: 243.5px;
+  left: 233px;
+  padding: 32px 24px 32px 24px;
+  gap: 24px;
+  border-radius: 16px;
+  opacity: 0px;
+  
+
+  background: #4F4F4F80;
+  backdrop-filter: blur(24px);
+
+  h1 {
+    font-family: Arboria;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 36px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+  }
+
+  h2 {
+    font-family: Arboria;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 27px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+  }
+
+  h3 {
+    font-family: Arboria;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+  }
+
+  input {
+    width: Fill (347px)px;
+height: Fixed (40px)px;
+padding: 10px 12px 10px 12px;
+gap: 10px;
+border-radius: 6px;
+opacity: 0px;
+background: #EDEDED;
+border: 1px solid #D4D4D4
+  }
+
 }
 
 @keyframes logo-spin {
