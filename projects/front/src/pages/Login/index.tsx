@@ -46,7 +46,7 @@ function Login() {
   };
 
   return (
-    <>
+    <div className='loginPage'>
       <div className="container">
         <img src={logo} className="logo" alt="Vite logo" />
       
@@ -111,7 +111,7 @@ function Login() {
         </form>
       </div>
       </div>  
-    </>
+    </div>
   );
 }
 

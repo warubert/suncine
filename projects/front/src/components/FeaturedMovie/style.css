@@ -34,9 +34,13 @@
             text-align: left;
             margin: 20px;
             margin-top: 10px;
-            height: 55%;
+            height: 38%;
             overflow: hidden;
-            text-overflow: ellipsis;
+            text-overflow: ellipsis; /* Adiciona os "..." */
+            display: -webkit-box; /* Usa a caixa flexível do WebKit */
+            -webkit-line-clamp: 2; /* Limita a 2 linhas */
+            -webkit-box-orient: vertical; /* Faz a caixa se comportar como uma coluna */
+            white-space: normal; /* Permite que o texto quebre em várias linhas */
         }
     }
 

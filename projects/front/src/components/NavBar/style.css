@@ -47,18 +47,19 @@
                 font-weight: 400;
                 text-align: left;
 
-                a {
-                    font-size: 14px;
-                    font-weight: 400;
-                    text-align: left;
-                    text-decoration-line: underline;
-                    color: rgba(135, 135, 135, 1);
-                }
             }
         }
 
         p {
             display: inline-grid;
+        }
+
+        a {
+            font-size: 14px;
+            font-weight: 400;
+            text-align: left;
+            text-decoration-line: underline;
+            color: rgba(135, 135, 135, 1);
         }
     }
 
