@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+
 
 // Definindo o tipo do contexto para incluir o usuário
 interface AuthContextType {

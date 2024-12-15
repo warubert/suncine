@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../../auth/AuthContext'; // Importe o useAuth
 import logo from '../../assets/logo.png';
 import './Style.css';
