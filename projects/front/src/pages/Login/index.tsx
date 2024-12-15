@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useAuth } from '../../auth/AuthContext'; // Importe o useAuth
+import { useAuth } from '../../auth/AuthContext';
 import logo from '../../assets/logo.png';
-import './Style.css';
 import { useNavigate } from 'react-router-dom';
+
+import './Style.css'
 
 function Login() {
   const [login, setLogin] = useState('');
@@ -11,13 +12,11 @@ function Login() {
   const [error, setError] = useState<{ login?: string; password?: string }>({});
   const navigate = useNavigate();
   
-  // Pega a função setToken do AuthContext
   const { setToken, setUser } = useAuth();
- 
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    setError({}); // Limpar erros antes de fazer a requisição
+    setError({});
     setLoading(true);
 
     try {
@@ -56,23 +55,17 @@ function Login() {
   };
 
   return (
-    <div className='loginPage'>
-      <div className="container">
-        <img src={logo} className="logo" alt="Vite logo" />
+    <div className="loginPage bg-cover bg-center">
+      <div className="container absolute top-[5vh] left-[10vw]">
+        <img src={logo} className="logo absolute h-[50px] left-0 top-[5vh]" alt="Vite logo" />
       
-        <div className="card">
-          <h1>Olá cinéfilo,</h1>
-          <h2>que bom te ver por aqui!</h2>
+        <div className="card relative top-[20vh] w-[400px] p-[32px] rounded-[16px] bg-[#4F4F4F80] text-[#FFFFFFDE]">
+          <h1 className="text-left text-[20px] font-medium m-0">Olá cinéfilo,</h1>
+          <h2 className="text-left text-[20px] font-medium m-0 mb-6">que bom te ver por aqui!</h2>
 
           <form onSubmit={handleSubmit}>
             <div>
-              <h3
-                style={{
-                  color: error.login ? '#FF5959' : 'white',
-                }}
-              >
-                E-mail
-              </h3>
+              <h3 className={`${error.login ? 'text-[#FF5959]' : 'text-white'} text-left`}>E-mail</h3>
               <input
                 type="text"
                 name="login"
@@ -80,20 +73,11 @@ function Login() {
                 value={login}
                 onChange={(e) => setLogin(e.target.value)}
                 required
-                style={{
-                  borderColor: error.login ? '#FF5959' : 'initial',
-                  color: error.login ? '#FF5959' : 'initial',
-                }}
+                className={`w-[100%] p-[10px] rounded-[6px] bg-[#EDEDED] text-[#000000] mb-4 ${error.login ? 'border-[#FF5959]' : ''}`}
               />
-              {error.login && <p className="error">{error.login}</p>}
+              {error.login && <p className="text-[#FF5959] text-center ">{error.login}</p>}
 
-              <h3
-                style={{
-                  color: error.password ? '#FF5959' : 'white',
-                }}
-              >
-                Senha
-              </h3>
+              <h3 className={`${error.password ? 'text-[#FF5959]' : 'text-white'} text-left`}>Senha</h3>
               <input
                 type="password"
                 name="password"
@@ -101,21 +85,20 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                style={{
-                  borderColor: error.password ? '#FF5959' : 'initial',
-                  color: error.password ? '#FF5959' : 'initial',
-                }}
+                className={`w-[100%] p-[10px] rounded-[6px] bg-[#EDEDED] text-[#000000] mb-4 ${error.password ? 'border-[#FF5959]' : ''}`}
               />
-              {error.password && <p className="error">{error.password}</p>}
+              {error.password && <p className="text-[#FF5959] text-center">{error.password}</p>}
             </div>
             
             <div>
-              <p className='forgot'>
-                Não consigo acessar minha conta
-              </p>
+              <p className="forgot text-right text-[#FF5F00] underline text-[16px] font-medium my-[20px]">Não consigo acessar minha conta</p>
             </div>
 
-            <button type="submit" disabled={loading}>
+            <button 
+              type="submit" 
+              disabled={loading} 
+              className="w-full p-[14px] rounded-[80px] bg-[#20665D] text-white cursor-pointer"
+            >
               {loading ? 'Carregando...' : 'Entrar'}
             </button>
           </form>

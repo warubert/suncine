@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './style.css';
 import NavBar from '../../components/NavBar';
 import FeaturedMovie from '../../components/FeaturedMovie';
 import FavMovie from '../../components/FavMovie';
@@ -17,7 +16,7 @@ const Home: React.FC = () => {
   }>({
     id: "",
     login: "",
-    name:""
+    name: ""
   });
   
   useEffect(() => {
@@ -31,13 +30,11 @@ const Home: React.FC = () => {
         setUser({ id: '', login: '', name: '' });
       }
 
-
       if (!token) {
         navigate('/');
       } else {
         const fetchData = async () => {
           try {
-            const token = localStorage.getItem('authToken');
             const response = await fetch('http://localhost:3000/movie/top-10', {
               method: 'GET',
               headers: {
@@ -49,17 +46,14 @@ const Home: React.FC = () => {
             if (response.ok) {
               const data = await response.json();
               setFilmes(data); // Atualiza o estado de filmes
-              
             } else {
               console.error('Resposta inesperada:', response);
             }
           } catch (error) {
             console.error('Erro na requisição:', error);
-          } finally {
           }
 
           try {
-            const token = localStorage.getItem('authToken');
             const response = await fetch('http://localhost:3000/movie/likes', {
               method: 'GET',
               headers: {
@@ -70,7 +64,7 @@ const Home: React.FC = () => {
         
             if (response.ok) {
               const data = await response.json();
-              setFavFilmes(data); // Atualiza o estado de filmes              
+              setFavFilmes(data); // Atualiza o estado de filmes
             } else {
               console.error('Resposta inesperada:', response);
             }
@@ -87,13 +81,13 @@ const Home: React.FC = () => {
     checkAuth();
   }, [navigate]);
 
-   const [currentPage, setCurrentPage] = useState<string>('featured');
+  const [currentPage, setCurrentPage] = useState<string>('featured');
 
-   const handleSelectedPage = (page: string) => {
-     setCurrentPage(page);
-   };
+  const handleSelectedPage = (page: string) => {
+    setCurrentPage(page);
+  };
 
-   const atualizarLikedStatus = (id:any, novoStatus:any) => {
+  const atualizarLikedStatus = (id:any, novoStatus:any) => {
     setFilmes(prevFilmes => 
       prevFilmes.map(filme =>
         filme.tmdb_id === id ? { ...filme, user_liked: novoStatus } : filme
@@ -106,13 +100,12 @@ const Home: React.FC = () => {
     );
   };
 
-   const handleLogout = () => {
+  const handleLogout = () => {
     localStorage.removeItem('authToken');
-
     navigate('/');
   };
 
-   return (
+  return (
     <div>
       <NavBar selectedPage={handleSelectedPage} />
       <div>
@@ -120,12 +113,12 @@ const Home: React.FC = () => {
           <p>Carregando filmes...</p>
         ) : (
           currentPage === 'featured' && (
-            <div className='home'>
+            <div className="absolute top-32 left-0 w-full max-w-full mt-5 flex flex-wrap justify-between">
               {filmes.length > 0 ? (
                 <>
                   <FeaturedMovie 
                     movie={filmes[0]} 
-                    width={50} 
+                    width={45} 
                     image={filmes[0].backdrop_path}
                     atualizarLikedStatus={atualizarLikedStatus}
                   />
@@ -145,7 +138,7 @@ const Home: React.FC = () => {
                     <FeaturedMovie 
                       key={index} 
                       movie={filme} 
-                      width={18} 
+                      width={17} 
                       image={filme.poster_path}
                       atualizarLikedStatus={atualizarLikedStatus} 
                       dark={true}
@@ -159,8 +152,8 @@ const Home: React.FC = () => {
           )
         )}
         {currentPage === 'favorites' && (
-          <div className='home favorites'>
-            <h1>Minhas curtidas</h1>
+          <div className="absolute top-32 left-0 w-full max-w-full mt-5 flex flex-col">
+            <h1 className="text-xl text-left mt-0 mb-2 mx-auto w-3/5">Minhas curtidas</h1>
             {favFilmes.length > 0 ? (
               favFilmes.map((filme, index) => (
                 <FavMovie 
@@ -174,27 +167,24 @@ const Home: React.FC = () => {
           </div>
         )}
         {currentPage === 'perfil' && (
-          <div className='home perfil'>
-        <div className='userInfo'>
-            <div className='avatar'>
-              <h1>{user.name[0]}</h1>
+          <div className="absolute top-32 left-0 w-full max-w-full mt-5">
+            <div className="flex flex-col items-center mt-8">
+              <div className="relative bg-gray-600 text-center w-44 h-44 rounded-full mx-2 mb-6">
+                <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-8xl font-bold">
+                  {user.name[0]}
+                </h1>
+              </div>
+              <h2 className="text-2xl">{user.name}</h2>
+              <h3 className="text-xl text-gray-400 mt-2 mb-6">{user.login}</h3>
+              <a onClick={handleLogout} className="text-sm underline cursor-pointer">
+                Sair
+              </a>
             </div>
-            <h2>
-              {user.name}
-            </h2>
-            <h3>
-              {user.login}
-            </h3>
-            <a onClick={handleLogout} style={{ cursor: 'pointer' }}>
-              Sair
-            </a>
-        </div>
-        </div>
+          </div>
         )}
       </div>
     </div>
   );
-  
 };
 
 export default Home;
