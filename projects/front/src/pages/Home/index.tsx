@@ -1,141 +1,91 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.css';
 import NavBar from '../../components/NavBar';
 import FeaturedMovie from '../../components/FeaturedMovie';
 import FavMovie from '../../components/FavMovie';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
-   const filmes = [
-    {
-      "tmdb_id": 558449,
-      "id": "6739f578aeafac0e04e2bf68",
-      "likes": 1,
-      "user_liked": true,
-      "backdrop_path": "https://image.tmdb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
-      "title": "Gladiador II",
-      "original_title": "Gladiator II",
-      "poster_path": "https://image.tmdb.org/t/p/w500/z1hNoGhH12ISnPzPqMOq1QLVGdu.jpg",
-      "release_date": "2024-11-13",
-      "overview": "Anos depois de testemunhar a trágica morte do reverenciado herói Maximus nas mãos de seu tio malvado, Lucius se vê forçado a lutar no Coliseu depois que sua terra natal é conquistada por dois imperadores tirânicos, que agora governam Roma. Com o coração ardendo de raiva e o destino do Império pendurado por um fio, Lucius deve enfrentar perigos e inimigos, redescobrindo em seu passado a força e a honra necessárias para trazer a glória de Roma de volta ao seu povo. Prepare-se para uma jornada épica de coragem e vingança na sangrenta arena do Coliseu.\n"
-    },
-    {
-      "tmdb_id": 558449,
-      "id": "6739f578aeafac0e04e2bf68",
-      "likes": 1,
-      "user_liked": false,
-      "backdrop_path": "https://image.tmdb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
-      "title": "Gladiador II",
-      "original_title": "Gladiator II",
-      "poster_path": "https://image.tmdb.org/t/p/w500/z1hNoGhH12ISnPzPqMOq1QLVGdu.jpg",
-      "release_date": "2024-11-13",
-      "overview": "Anos depois de testemunhar a trágica morte do reverenciado herói Maximus nas mãos de seu tio malvado, Lucius se vê forçado a lutar no Coliseu depois que sua terra natal é conquistada por dois imperadores tirânicos, que agora governam Roma. Com o coração ardendo de raiva e o destino do Império pendurado por um fio, Lucius deve enfrentar perigos e inimigos, redescobrindo em seu passado a força e a honra necessárias para trazer a glória de Roma de volta ao seu povo. Prepare-se para uma jornada épica de coragem e vingança na sangrenta arena do Coliseu.\n"
-    },
-    {
-      "tmdb_id": 558449,
-      "id": "6739f578aeafac0e04e2bf68",
-      "likes": 1,
-      "user_liked": true,
-      "backdrop_path": "https://image.tmdb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
-      "title": "Gladiador II",
-      "original_title": "Gladiator II",
-      "poster_path": "https://image.tmdb.org/t/p/w500/z1hNoGhH12ISnPzPqMOq1QLVGdu.jpg",
-      "release_date": "2024-11-13",
-      "overview": "Anos depois de testemunhar a trágica morte do reverenciado herói Maximus nas mãos de seu tio malvado, Lucius se vê forçado a lutar no Coliseu depois que sua terra natal é conquistada por dois imperadores tirânicos, que agora governam Roma. Com o coração ardendo de raiva e o destino do Império pendurado por um fio, Lucius deve enfrentar perigos e inimigos, redescobrindo em seu passado a força e a honra necessárias para trazer a glória de Roma de volta ao seu povo. Prepare-se para uma jornada épica de coragem e vingança na sangrenta arena do Coliseu.\n"
-    },
-    {
-      "tmdb_id": 558449,
-      "id": "6739f578aeafac0e04e2bf68",
-      "likes": 1,
-      "user_liked": true,
-      "backdrop_path": "https://image.tmdb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
-      "title": "Gladiador II",
-      "original_title": "Gladiator II",
-      "poster_path": "https://image.tmdb.org/t/p/w500/z1hNoGhH12ISnPzPqMOq1QLVGdu.jpg",
-      "release_date": "2024-11-13",
-      "overview": "Anos depois de testemunhar a trágica morte do reverenciado herói Maximus nas mãos de seu tio malvado, Lucius se vê forçado a lutar no Coliseu depois que sua terra natal é conquistada por dois imperadores tirânicos, que agora governam Roma. Com o coração ardendo de raiva e o destino do Império pendurado por um fio, Lucius deve enfrentar perigos e inimigos, redescobrindo em seu passado a força e a honra necessárias para trazer a glória de Roma de volta ao seu povo. Prepare-se para uma jornada épica de coragem e vingança na sangrenta arena do Coliseu.\n"
-    },
-    {
-      "tmdb_id": 558449,
-      "id": "6739f578aeafac0e04e2bf68",
-      "likes": 1,
-      "user_liked": true,
-      "backdrop_path": "https://image.tmdb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
-      "title": "Gladiador II",
-      "original_title": "Gladiator II",
-      "poster_path": "https://image.tmdb.org/t/p/w500/z1hNoGhH12ISnPzPqMOq1QLVGdu.jpg",
-      "release_date": "2024-11-13",
-      "overview": "Anos depois de testemunhar a trágica morte do reverenciado herói Maximus nas mãos de seu tio malvado, Lucius se vê forçado a lutar no Coliseu depois que sua terra natal é conquistada por dois imperadores tirânicos, que agora governam Roma. Com o coração ardendo de raiva e o destino do Império pendurado por um fio, Lucius deve enfrentar perigos e inimigos, redescobrindo em seu passado a força e a honra necessárias para trazer a glória de Roma de volta ao seu povo. Prepare-se para uma jornada épica de coragem e vingança na sangrenta arena do Coliseu.\n"
-    },
-    {
-      "tmdb_id": 558449,
-      "id": "6739f578aeafac0e04e2bf68",
-      "likes": 1,
-      "user_liked": true,
-      "backdrop_path": "https://image.tmdb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
-      "title": "Gladiador II",
-      "original_title": "Gladiator II",
-      "poster_path": "https://image.tmdb.org/t/p/w500/z1hNoGhH12ISnPzPqMOq1QLVGdu.jpg",
-      "release_date": "2024-11-13",
-      "overview": "Anos depois de testemunhar a trágica morte do reverenciado herói Maximus nas mãos de seu tio malvado, Lucius se vê forçado a lutar no Coliseu depois que sua terra natal é conquistada por dois imperadores tirânicos, que agora governam Roma. Com o coração ardendo de raiva e o destino do Império pendurado por um fio, Lucius deve enfrentar perigos e inimigos, redescobrindo em seu passado a força e a honra necessárias para trazer a glória de Roma de volta ao seu povo. Prepare-se para uma jornada épica de coragem e vingança na sangrenta arena do Coliseu.\n"
-    },
-    {
-      "tmdb_id": 558449,
-      "id": "6739f578aeafac0e04e2bf68",
-      "likes": 1,
-      "user_liked": true,
-      "backdrop_path": "https://image.tmdb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
-      "title": "Gladiador II",
-      "original_title": "Gladiator II",
-      "poster_path": "https://image.tmdb.org/t/p/w500/z1hNoGhH12ISnPzPqMOq1QLVGdu.jpg",
-      "release_date": "2024-11-13",
-      "overview": "Anos depois de testemunhar a trágica morte do reverenciado herói Maximus nas mãos de seu tio malvado, Lucius se vê forçado a lutar no Coliseu depois que sua terra natal é conquistada por dois imperadores tirânicos, que agora governam Roma. Com o coração ardendo de raiva e o destino do Império pendurado por um fio, Lucius deve enfrentar perigos e inimigos, redescobrindo em seu passado a força e a honra necessárias para trazer a glória de Roma de volta ao seu povo. Prepare-se para uma jornada épica de coragem e vingança na sangrenta arena do Coliseu.\n"
-    },
-    {
-      "tmdb_id": 558449,
-      "id": "6739f578aeafac0e04e2bf68",
-      "likes": 1,
-      "user_liked": true,
-      "backdrop_path": "https://image.tmdb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
-      "title": "Gladiador II",
-      "original_title": "Gladiator II",
-      "poster_path": "https://image.tmdb.org/t/p/w500/z1hNoGhH12ISnPzPqMOq1QLVGdu.jpg",
-      "release_date": "2024-11-13",
-      "overview": "Anos depois de testemunhar a trágica morte do reverenciado herói Maximus nas mãos de seu tio malvado, Lucius se vê forçado a lutar no Coliseu depois que sua terra natal é conquistada por dois imperadores tirânicos, que agora governam Roma. Com o coração ardendo de raiva e o destino do Império pendurado por um fio, Lucius deve enfrentar perigos e inimigos, redescobrindo em seu passado a força e a honra necessárias para trazer a glória de Roma de volta ao seu povo. Prepare-se para uma jornada épica de coragem e vingança na sangrenta arena do Coliseu.\n"
-    }
-   ]
-
-   const favFilmes = [  
-    {
-      "tmdb_id": 558449,
-      "id": "6739f578aeafac0e04e2bf68",
-      "likes": 1,
-      "user_liked": true,
-      "backdrop_path": "https://image.tmdb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
-      "title": "Gladiador II",
-      "original_title": "Gladiator II",
-      "poster_path": "https://image.tmdb.org/t/p/w500/z1hNoGhH12ISnPzPqMOq1QLVGdu.jpg",
-      "release_date": "2024-11-13",
-      "overview": "Anos depois de testemunhar a trágica morte do reverenciado herói Maximus nas mãos de seu tio malvado, Lucius se vê forçado a lutar no Coliseu depois que sua terra natal é conquistada por dois imperadores tirânicos, que agora governam Roma. Com o coração ardendo de raiva e o destino do Império pendurado por um fio, Lucius deve enfrentar perigos e inimigos, redescobrindo em seu passado a força e a honra necessárias para trazer a glória de Roma de volta ao seu povo. Prepare-se para uma jornada épica de coragem e vingança na sangrenta arena do Coliseu.\n"
-    },
-    {
-      "tmdb_id": 558449,
-      "id": "6739f578aeafac0e04e2bf68",
-      "likes": 1,
-      "user_liked": false,
-      "backdrop_path": "https://image.tmdb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
-      "title": "Gladiador II",
-      "original_title": "Gladiator II",
-      "poster_path": "https://image.tmdb.org/t/p/w500/z1hNoGhH12ISnPzPqMOq1QLVGdu.jpg",
-      "release_date": "2024-11-13",
-      "overview": "Anos depois de testemunhar a trágica morte do reverenciado herói Maximus nas mãos de seu tio malvado, Lucius se vê forçado a lutar no Coliseu depois que sua terra natal é conquistada por dois imperadores tirânicos, que agora governam Roma. Com o coração ardendo de raiva e o destino do Império pendurado por um fio, Lucius deve enfrentar perigos e inimigos, redescobrindo em seu passado a força e a honra necessárias para trazer a glória de Roma de volta ao seu povo. Prepare-se para uma jornada épica de coragem e vingança na sangrenta arena do Coliseu.\n"
-    },
-   ]
-
-   const [user] = useState({
-    id: "67394d15c7e82dea5228633d",
-    login: "admin@email.com",
-    name: "Dev"
+  const navigate = useNavigate();
+  const [filmes, setFilmes] = useState<any[]>([]);
+  const [favFilmes, setFavFilmes] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [user, setUser] = useState<{
+    id: string,
+    login: string,
+    name: string,
+  }>({
+    id: "",
+    login: "",
+    name:""
   });
+  
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem('authToken');
+      const storedUser = localStorage.getItem('user');
+    
+      if (storedUser) {
+        setUser(JSON.parse(storedUser)); 
+      } else {
+        setUser({ id: '', login: '', name: '' });
+      }
+
+
+      if (!token) {
+        navigate('/');
+      } else {
+        const fetchData = async () => {
+          try {
+            const token = localStorage.getItem('authToken');
+            const response = await fetch('http://localhost:3000/movie/top-10', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+              },
+            });
+        
+            if (response.ok) {
+              const data = await response.json();
+              setFilmes(data); // Atualiza o estado de filmes
+              
+            } else {
+              console.error('Resposta inesperada:', response);
+            }
+          } catch (error) {
+            console.error('Erro na requisição:', error);
+          } finally {
+          }
+
+          try {
+            const token = localStorage.getItem('authToken');
+            const response = await fetch('http://localhost:3000/movie/likes', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+              },
+            });
+        
+            if (response.ok) {
+              const data = await response.json();
+              setFavFilmes(data); // Atualiza o estado de filmes              
+            } else {
+              console.error('Resposta inesperada:', response);
+            }
+          } catch (error) {
+            console.error('Erro na requisição:', error);
+          } finally {
+            setLoading(false); // Atualiza o estado de carregamento para false
+          }
+        };
+        
+        fetchData();
+      }
+    };
+    checkAuth();
+  }, [navigate]);
 
    const [currentPage, setCurrentPage] = useState<string>('featured');
 
@@ -143,46 +93,84 @@ const Home: React.FC = () => {
      setCurrentPage(page);
    };
 
-  return (
+   const atualizarLikedStatus = (id:any, novoStatus:any) => {
+    setFilmes(prevFilmes => 
+      prevFilmes.map(filme =>
+        filme.tmdb_id === id ? { ...filme, user_liked: novoStatus } : filme
+      )
+    );
+    setFavFilmes(prevFilmes => 
+      prevFilmes.map(filme =>
+        filme.tmdb_id === id ? { ...filme, user_liked: novoStatus } : filme
+      )
+    );
+  };
+
+   const handleLogout = () => {
+    localStorage.removeItem('authToken');
+
+    navigate('/');
+  };
+
+   return (
     <div>
-        <NavBar selectedPage={handleSelectedPage} />
-      <div >
-        {currentPage === 'featured' && (
-          <div className='home'>
-            <FeaturedMovie 
-              movie={filmes[0]} 
-              width={50} 
-              image={filmes[0].backdrop_path}
-            />
-            <FeaturedMovie 
-              movie={filmes[1]} 
-              width={23} 
-              image={filmes[1].poster_path}
-            />
-            <FeaturedMovie 
-              movie={filmes[2]} 
-              width={23} 
-              image={filmes[2].poster_path}
-            />
-            {filmes.slice(3, 10).map((filme, index) => (
-              <FeaturedMovie 
-                key={index} 
-                movie={filme} 
-                width={18} 
-                image={filme.poster_path} 
-              />
-            ))}
-        </div>
+      <NavBar selectedPage={handleSelectedPage} />
+      <div>
+        {loading ? (
+          <p>Carregando filmes...</p>
+        ) : (
+          currentPage === 'featured' && (
+            <div className='home'>
+              {filmes.length > 0 ? (
+                <>
+                  <FeaturedMovie 
+                    movie={filmes[0]} 
+                    width={50} 
+                    image={filmes[0].backdrop_path}
+                    atualizarLikedStatus={atualizarLikedStatus}
+                  />
+                  <FeaturedMovie 
+                    movie={filmes[1]} 
+                    width={23} 
+                    image={filmes[1].poster_path}
+                    atualizarLikedStatus={atualizarLikedStatus}
+                  />
+                  <FeaturedMovie 
+                    movie={filmes[2]} 
+                    width={23} 
+                    image={filmes[2].poster_path}
+                    atualizarLikedStatus={atualizarLikedStatus}
+                  />
+                  {filmes.slice(3, 10).map((filme, index) => (
+                    <FeaturedMovie 
+                      key={index} 
+                      movie={filme} 
+                      width={18} 
+                      image={filme.poster_path}
+                      atualizarLikedStatus={atualizarLikedStatus} 
+                      dark={true}
+                    />
+                  ))}
+                </>
+              ) : (
+                <p>Não há filmes disponíveis</p>
+              )}
+            </div>
+          )
         )}
         {currentPage === 'favorites' && (
-          <div className='home favorites '>
+          <div className='home favorites'>
             <h1>Minhas curtidas</h1>
-            {favFilmes.map((filme, index) => (
-              <FavMovie 
-                key={index} 
-                movie={filme} 
-              />
-            ))}
+            {favFilmes.length > 0 ? (
+              favFilmes.map((filme, index) => (
+                <FavMovie 
+                  key={index} 
+                  movie={filme} 
+                />
+              ))
+            ) : (
+              <p>Não há filmes Curtidos</p>
+            )}
           </div>
         )}
         {currentPage === 'perfil' && (
@@ -197,7 +185,7 @@ const Home: React.FC = () => {
             <h3>
               {user.login}
             </h3>
-            <a>
+            <a onClick={handleLogout} style={{ cursor: 'pointer' }}>
               Sair
             </a>
         </div>
@@ -206,6 +194,7 @@ const Home: React.FC = () => {
       </div>
     </div>
   );
+  
 };
 
 export default Home;

@@ -26,6 +26,12 @@
             font-weight: 700;
             text-align: left;
             margin: 12px 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            white-space: normal;
         }
 
         h2 {
@@ -36,11 +42,11 @@
             margin-top: 10px;
             height: 38%;
             overflow: hidden;
-            text-overflow: ellipsis; /* Adiciona os "..." */
-            display: -webkit-box; /* Usa a caixa flexível do WebKit */
-            -webkit-line-clamp: 2; /* Limita a 2 linhas */
-            -webkit-box-orient: vertical; /* Faz a caixa se comportar como uma coluna */
-            white-space: normal; /* Permite que o texto quebre em várias linhas */
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            white-space: normal;
         }
     }
 
@@ -55,6 +61,7 @@
         z-index: 100;
         top: 0;
         top: 0;
+        cursor: pointer;
 
         svg {
             position: absolute;

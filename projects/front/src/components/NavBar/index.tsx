@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './style.css';
 import logo from '../../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 interface NavBarProps {
-  selectedPage: (page: string) => void; // Função callback para o componente pai
+  selectedPage: (page: string) => void;
 }
 
 const NavBar: React.FC<NavBarProps> = ({ selectedPage }) => {
+  const navigate = useNavigate();
+  
   const [user] = useState({
     id: "67394d15c7e82dea5228633d",
     login: "admin@email.com",
@@ -16,8 +19,14 @@ const NavBar: React.FC<NavBarProps> = ({ selectedPage }) => {
   const [pageActive, setPageActive] = useState<string>('featured');
 
   const handlePageClick = (page: string) => {
-    setPageActive(page); // Atualiza o estado
-    selectedPage(page); // Passa o valor atualizado ao componente pai
+    setPageActive(page);
+    selectedPage(page);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+
+    navigate('/');
   };
 
   return (
@@ -31,10 +40,10 @@ const NavBar: React.FC<NavBarProps> = ({ selectedPage }) => {
           </div>
           <p>
             Olá {user.name}!
-            <a className='perfil'>Ver Perfil</a>
+            <a className='perfil' onClick={() => handlePageClick('perfil')}>Ver Perfil</a>
           </p>
         </div>
-        <div className='icon'>        
+        <div className='icon' onClick={handleLogout} style={{ cursor: 'pointer' }}>        
           <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.3806 2.30469C10.6072 2.30494 10.8251 2.39169 10.9899 2.54722C11.1546 2.70275 11.2537 2.91531 11.267 3.14148C11.2803 3.36765 11.2067 3.59036 11.0613 3.76409C10.9159 3.93783 10.7096 4.04948 10.4846 4.07624L10.3806 4.08247H5.9362C5.71848 4.08249 5.50834 4.16243 5.34565 4.3071C5.18295 4.45178 5.079 4.65113 5.05353 4.86735L5.04731 4.97135V15.638C5.04734 15.8557 5.12727 16.0659 5.27194 16.2286C5.41662 16.3913 5.61597 16.4952 5.8322 16.5207L5.9362 16.5269H9.9362C10.1628 16.5272 10.3807 16.6139 10.5454 16.7694C10.7102 16.925 10.8093 17.1375 10.8226 17.3637C10.8359 17.5899 10.7623 17.8126 10.6169 17.9863C10.4714 18.1601 10.2652 18.2717 10.0402 18.2985L9.9362 18.3047H5.9362C5.25601 18.3047 4.60152 18.0448 4.10663 17.5782C3.61175 17.1116 3.31388 16.4735 3.27398 15.7945L3.26953 15.638V4.97135C3.26949 4.29117 3.52938 3.63667 3.99601 3.14179C4.46264 2.6469 5.10074 2.34904 5.77975 2.30913L5.9362 2.30469H10.3806ZM15.4535 7.16158L17.9673 9.67624C18.134 9.84293 18.2276 10.069 18.2276 10.3047C18.2276 10.5404 18.134 10.7664 17.9673 10.9331L15.4535 13.4478C15.2867 13.6145 15.0606 13.7081 14.8248 13.708C14.589 13.7079 14.3629 13.6141 14.1962 13.4474C14.0295 13.2806 13.9359 13.0544 13.936 12.8186C13.9361 12.5828 14.0299 12.3567 14.1966 12.19L15.1931 11.1936H10.3806C10.1449 11.1936 9.9188 11.0999 9.7521 10.9332C9.5854 10.7665 9.49175 10.5404 9.49175 10.3047C9.49175 10.0689 9.5854 9.84285 9.7521 9.67615C9.9188 9.50945 10.1449 9.4158 10.3806 9.4158H15.1931L14.1966 8.41935C14.0299 8.25268 13.9361 8.02658 13.936 7.79078C13.9359 7.55498 14.0295 7.32881 14.1962 7.16202C14.3629 6.99523 14.589 6.90148 14.8248 6.9014C15.0606 6.90131 15.2867 6.9949 15.4535 7.16158Z" fill="#FCFCFC"/>
           </svg>

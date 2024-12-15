@@ -25,7 +25,7 @@ export function isTmdbMovieDto(movie: unknown): boolean {
 }
 
 export function get10MostPopular(movies: TmdbMovie[]): TmdbMovie[] {
-  return movies.slice(0, 10)
+  return movies.slice(0, 8)
 }
 
 export function formatToResponse(movies: TmdbMovie[]): Movie[] {

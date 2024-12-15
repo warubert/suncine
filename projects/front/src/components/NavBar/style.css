@@ -60,6 +60,7 @@
             text-align: left;
             text-decoration-line: underline;
             color: rgba(135, 135, 135, 1);
+            cursor: pointer;
         }
     }
 
@@ -89,6 +90,7 @@
         .btn {
             display: inline-flex;
             margin: 0 10px;
+            cursor: pointer;
         
             h2 {
                 font-size: 16px;

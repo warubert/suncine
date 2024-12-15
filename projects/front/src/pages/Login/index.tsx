@@ -1,17 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../auth/AuthContext'; // Importe o useAuth
 import logo from '../../assets/logo.png';
 import './Style.css';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{ login?: string; password?: string }>({});
+  const navigate = useNavigate();
+  
+  // Pega a função setToken do AuthContext
+  const { setToken, setUser } = useAuth();
+ 
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    setLoading(true);
     setError({}); // Limpar erros antes de fazer a requisição
+    setLoading(true);
 
     try {
       const response = await fetch('http://localhost:3000/login', {
@@ -26,7 +33,10 @@ function Login() {
         const data = await response.json();
         if (data.status === 'OK' && data.payload && data.payload.token) {
           console.log('Login bem-sucedido:', data);
-          alert(`Login bem-sucedido! Bem-vindo, ${data.payload.user.name}`);
+
+          setToken(data.payload.token);
+          setUser(data.payload.user);
+          navigate("/home");
         } else {
           console.error('Resposta inesperada:', data);
           setError({ login: 'E-mail ou senha inválidos', password: 'E-mail ou senha inválidos' });
@@ -50,66 +60,66 @@ function Login() {
       <div className="container">
         <img src={logo} className="logo" alt="Vite logo" />
       
-      <div className="card">
-        <h1>Olá cinéfilo,</h1>
-        <h2>que bom te ver por aqui!</h2>
+        <div className="card">
+          <h1>Olá cinéfilo,</h1>
+          <h2>que bom te ver por aqui!</h2>
 
-        <form onSubmit={handleSubmit}>
-          <div>
-            <h3
-              style={{
-                color: error.login ? '#FF5959' : 'white',
-              }}
-            >
-              E-mail
-            </h3>
-            <input
-              type="text"
-              name="login"
-              placeholder="Insira seu e-mail"
-              value={login}
-              onChange={(e) => setLogin(e.target.value)}
-              required
-              style={{
-                borderColor: error.login ? '#FF5959' : 'initial',
-                color: error.login ? '#FF5959' : 'initial',
-              }}
-            />
-            {error.login && <p className="error">{error.login}</p>}
+          <form onSubmit={handleSubmit}>
+            <div>
+              <h3
+                style={{
+                  color: error.login ? '#FF5959' : 'white',
+                }}
+              >
+                E-mail
+              </h3>
+              <input
+                type="text"
+                name="login"
+                placeholder="Insira seu e-mail"
+                value={login}
+                onChange={(e) => setLogin(e.target.value)}
+                required
+                style={{
+                  borderColor: error.login ? '#FF5959' : 'initial',
+                  color: error.login ? '#FF5959' : 'initial',
+                }}
+              />
+              {error.login && <p className="error">{error.login}</p>}
 
-            <h3
-              style={{
-                color: error.password ? '#FF5959' : 'white',
-              }}
-            >
-              Senha
-            </h3>
-            <input
-              type="password"
-              name="password"
-              placeholder="Insira sua senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              style={{
-                borderColor: error.password ? '#FF5959' : 'initial',
-                color: error.password ? '#FF5959' : 'initial',
-              }}
-            />
-            {error.password && <p className="error">{error.password}</p>}
-          </div>
-          
-          <div>
-            <p className='forgot'>
-              Não consigo acessar minha conta
-            </p>
-          </div>
+              <h3
+                style={{
+                  color: error.password ? '#FF5959' : 'white',
+                }}
+              >
+                Senha
+              </h3>
+              <input
+                type="password"
+                name="password"
+                placeholder="Insira sua senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{
+                  borderColor: error.password ? '#FF5959' : 'initial',
+                  color: error.password ? '#FF5959' : 'initial',
+                }}
+              />
+              {error.password && <p className="error">{error.password}</p>}
+            </div>
+            
+            <div>
+              <p className='forgot'>
+                Não consigo acessar minha conta
+              </p>
+            </div>
 
-          <button type="submit" disabled={loading}>
-            {loading ? 'Carregando...' : 'Entrar'}
-          </button>
-        </form>
-      </div>
+            <button type="submit" disabled={loading}>
+              {loading ? 'Carregando...' : 'Entrar'}
+            </button>
+          </form>
+        </div>
       </div>  
     </div>
   );
