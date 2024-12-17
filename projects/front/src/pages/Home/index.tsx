@@ -3,6 +3,7 @@ import NavBar from '../../components/NavBar';
 import FeaturedMovie from '../../components/FeaturedMovie';
 import FavMovie from '../../components/FavMovie';
 import { useNavigate } from 'react-router-dom';
+import './style.css'
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -87,18 +88,23 @@ const Home: React.FC = () => {
     setCurrentPage(page);
   };
 
-  const atualizarLikedStatus = (id:any, novoStatus:any) => {
-    setFilmes(prevFilmes => 
-      prevFilmes.map(filme =>
+  const atualizarLikedStatus = (id: any, novoStatus: any) => {    
+    setFilmes((prevFilmes) =>      
+      prevFilmes.map((filme) =>        
         filme.tmdb_id === id ? { ...filme, user_liked: novoStatus } : filme
-      )
-    );
-    setFavFilmes(prevFilmes => 
-      prevFilmes.map(filme =>
-        filme.tmdb_id === id ? { ...filme, user_liked: novoStatus } : filme
-      )
-    );
-  };
+        )    
+      );      
+      setFavFilmes((prevFavFilmes) => {      
+        const filmeAtualizado = filmes.find((filme) => filme.tmdb_id === id);
+        if (!filmeAtualizado) return prevFavFilmes;
+        const novoFilme = { ...filmeAtualizado, user_liked: novoStatus };
+        if (novoStatus) {
+          return [...prevFavFilmes, novoFilme];
+        } else {
+          return prevFavFilmes.filter((filme) => filme.tmdb_id !== id);
+        }    
+      });  
+    };
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
@@ -156,14 +162,15 @@ const Home: React.FC = () => {
             <h1 className="text-xl text-left mt-0 mb-2 mx-auto w-3/5">Minhas curtidas</h1>
             {favFilmes.length > 0 ? (
               favFilmes.map((filme, index) => (
-                <FavMovie 
-                  key={index} 
-                  movie={filme} 
-                />
+                  <FavMovie
+                    key={index} 
+                    movie={filme}
+                    atualizarLikedStatus={atualizarLikedStatus}
+                  />
               ))
             ) : (
               <p>Não há filmes Curtidos</p>
-            )}
+            )}            
           </div>
         )}
         {currentPage === 'perfil' && (
