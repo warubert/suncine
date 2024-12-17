@@ -20,7 +20,8 @@ export function isTmdbMovieDto(movie: unknown): boolean {
     "release_date" in movie &&
     "video" in movie &&
     "vote_average" in movie &&
-    "vote_count" in movie
+    "vote_count" in movie &&
+    "liked_at" in movie
   )
 }
 
@@ -68,6 +69,7 @@ export function formatToApp(movie: MovieData, user_liked = false): MovieInApp {
     original_title: movie.tmdb_obj.original_title,
     poster_path: formatPosterImg(movie.tmdb_obj.poster_path),
     release_date: movie.tmdb_obj.release_date,
-    overview: movie.tmdb_obj.overview
+    overview: movie.tmdb_obj.overview,
+    liked_at: movie.tmdb_obj.liked_at
   }
 }

@@ -10,6 +10,9 @@ export async function updateLikes(
   const movie_doc = await MODELS.MOVIE.findOne({ tmdb_id: tmdb_id })
   if (!movie_doc) throw new Error("TILT")
   movie_doc.likes = movie_doc.likes + (operation === "SUM" ? 1 : -1)
+  const tmdb_obj = movie_doc.tmdb_obj as Map<keyof TmdbMovie, unknown>;
+  tmdb_obj.set("liked_at", new Date());
+
   await movie_doc.save()
   return {
     id: movie_doc.id,

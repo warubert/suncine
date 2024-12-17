@@ -15,6 +15,7 @@ export async function mostTrendedUseCase(MOVIE_API: TmdbApiContract): Promise<Mo
     id: "",
     likes: 0,
     release_date: most_trended.release_date,
-    overview: most_trended.overview
+    overview: most_trended.overview,
+    liked_at: new Date()
   }
 }

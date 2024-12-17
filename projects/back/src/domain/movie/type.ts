@@ -10,6 +10,7 @@ export interface MovieInApp {
   tmdb_id: number
   id: string
   likes: number
+  liked_at: Date
   user_liked: boolean
   backdrop_path: string
   title: string

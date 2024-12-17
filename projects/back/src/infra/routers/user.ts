@@ -52,7 +52,8 @@ const USER_LIKES = {
 
     try {
       const payload = await likesUseCase(DB(), user.id)
-      const payload2 = splitArray(payload, 3);
+      const sortedPayload = payload.sort((a, b) => b.liked_at.getTime() - a.liked_at.getTime());
+      const payloadPaged = splitArray(sortedPayload, 3);
 
       return reply.status(200).send(
         {
@@ -63,7 +64,7 @@ const USER_LIKES = {
             name: user.name
           },
           likes: payload.length,
-          movies: payload2[page] || []
+          movies: payloadPaged[page] || []
         })        
     } catch (error) {
       console.error(error)

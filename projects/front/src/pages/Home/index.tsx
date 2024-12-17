@@ -65,14 +65,14 @@ const Home: React.FC = () => {
         
             if (response.ok) {
               const data = await response.json();
-              setFavFilmes(data); // Atualiza o estado de filmes
+              setFavFilmes(data);
             } else {
               console.error('Resposta inesperada:', response);
             }
           } catch (error) {
             console.error('Erro na requisição:', error);
           } finally {
-            setLoading(false); // Atualiza o estado de carregamento para false
+            setLoading(false);
           }
         };
         

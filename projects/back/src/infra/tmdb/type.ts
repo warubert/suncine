@@ -13,5 +13,6 @@ export interface TmdbMovie {
   release_date: string
   video: boolean
   vote_average: number
-  vote_count: number
+  vote_count: number,
+  liked_at: Date
 }

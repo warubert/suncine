@@ -29,7 +29,6 @@ const NavBar: React.FC<NavBarProps> = ({ selectedPage }) => {
 
   return (
     <div>
-      {/* Top Bar */}
       <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-r from-[#212121] to-[#0A1916] flex items-center">
         <img src={logo} className="absolute top-1/2 left-5 transform -translate-y-1/2 h-10" alt="Logo" />
         <div className="absolute top-1/2 right-24 transform -translate-y-1/2 inline-flex items-center">
@@ -48,7 +47,6 @@ const NavBar: React.FC<NavBarProps> = ({ selectedPage }) => {
         </div>
       </div>
 
-      {/* Navigation Bar */}
       <div className="absolute top-20 left-0 w-full h-15 bg-[#0A1916] flex justify-center items-center">
         <div className="flex space-x-6">
           <div
